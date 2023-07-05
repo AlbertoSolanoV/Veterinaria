@@ -1,0 +1,152 @@
+service: BackEndVeterinaria
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: us-east-1
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action: 
+            - dynamodb:*
+          Resource:
+            - arn:aws:dynamodb:us-east-1:057667068792:table/CitasTable
+            - arn:aws:dynamodb:us-east-1:057667068792:table/UsuariosTable
+            - arn:aws:dynamodb:us-east-1:057667068792:table/MascotasTable
+
+functions:
+  api:
+    handler: src/index.handler
+    events:
+      - httpApi:
+          path: /
+          method: get
+  addCita:
+    handler: src/Citas/addCita.agregarCita
+    events:
+      - httpApi:
+          path: /addCita
+          method: POST
+  getCita:
+    handler: src/Citas/getCita.getCita
+    events:
+      - httpApi:
+          path: /getCita/{idCita}
+          method: get
+  getCitas:
+    handler: src/Citas/getCitas.getCitas
+    events:
+      - httpApi:
+          path: /getCitas
+          method: get
+  getCitasCliente:
+    handler: src/Citas/getCitas.getCitasCliente
+    events:
+      - httpApi:
+          path: /getCitasCliente/{idCliente}
+          method: get
+  scheduleCita:
+    handler: src/Citas/updateCita.scheduleCita
+    events:
+      - httpApi:
+          path: /scheduleCita/{idCita}
+          method: put         
+  cancelCita:
+    handler: src/Citas/updateCita.cancelCita
+    events:
+      - httpApi:
+          path: /cancelCita/{idCita}
+          method: put
+  updateCita:
+    handler: src/Citas/updateCita.updateCita
+    events:
+      - httpApi:
+          path: /updateCita/{idCita}
+          method: put
+  deleteCita:
+    handler: src/Citas/deleteCita.deleteCita
+    events:
+      - httpApi:
+          path: /deleteCita/{idCita}
+          method: delete     
+  getUsuario:
+    handler: src/Usuarios/getUsuario.getUsuario
+    events:
+      - httpApi:
+          path: /login
+          method: POST
+  addUsuario:
+    handler: src/Usuarios/addUsuario.crearUsuario
+    events:
+      - httpApi:
+          path: /signup
+          method: POST
+  getMascota:
+    handler: src/Mascotas/getMascota.getMascota
+    events:
+    - httpApi:
+        path: /mascota/{idMascota}
+        method: get
+  addMascota:
+    handler: src/Mascotas/addMascota.crearMascota
+    events:
+    - httpApi:
+        path: /mascota/{idCliente}
+        method: POST
+  getMascotas:
+    handler: src/Mascotas/getMascotas.getMascotas
+    events:
+    - httpApi:
+        path: /mascotas/{idCliente}
+        method: get
+  updateMascota:
+    handler: src/Mascotas/updateMascota.updateMascota
+    events:
+    - httpApi:
+        path: /mascota/{idMascota}
+        method: put
+  deleteMascota:
+    handler: src/Mascotas/deleteMascota.deleteMascota
+    events:
+    - httpApi:
+        path: /mascota/{idMascota}
+        method: DELETE
+
+        
+resources:
+  Resources:
+    CitasTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: CitasTable
+        BillingMode: PAY_PER_REQUEST
+        AttributeDefinitions:
+          - AttributeName: idCita
+            AttributeType: S
+        KeySchema:
+          - AttributeName: idCita
+            KeyType: HASH
+    UsuariosTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: UsuariosTable
+        BillingMode: PAY_PER_REQUEST
+        AttributeDefinitions:
+          - AttributeName: idUsuario
+            AttributeType: S
+        KeySchema:
+          - AttributeName: idUsuario
+            KeyType: HASH
+    MascotasTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: MascotasTable
+        BillingMode: PAY_PER_REQUEST
+        AttributeDefinitions:
+          - AttributeName: idMascota
+            AttributeType: S
+        KeySchema:
+          - AttributeName: idMascota
+            KeyType: HASH

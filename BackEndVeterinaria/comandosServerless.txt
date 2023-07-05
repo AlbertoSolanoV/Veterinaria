@@ -1,0 +1,35 @@
+serverless deploy function -f 'Nombre de la funcion que se va a hacer deploy' para hacer deploy a solo una funcion
+Ejemplo de funcion
+/ 
+  cancelCita:
+    handler: src/updateCita.cancelCita
+    events:
+      - httpApi:
+          path: /cancelCita/{idCita}
+          method: put 
+/
+serverless deploy --verbose  // para hacer deploy a todas las funciones
+
+
+
+  GET - https://n4vd03p5e8.execute-api.us-east-1.amazonaws.com/
+  POST - https://n4vd03p5e8.execute-api.us-east-1.amazonaws.com/addCita
+  GET - https://n4vd03p5e8.execute-api.us-east-1.amazonaws.com/getCita/{idCita}
+  GET - https://n4vd03p5e8.execute-api.us-east-1.amazonaws.com/getCitas
+  PUT - https://n4vd03p5e8.execute-api.us-east-1.amazonaws.com/scheduleCita/{idCita}
+  PUT - https://n4vd03p5e8.execute-api.us-east-1.amazonaws.com/cancelCita/{idCita}
+  GET - https://n4vd03p5e8.execute-api.us-east-1.amazonaws.com/login/{idUsuario}
+  POST - https://n4vd03p5e8.execute-api.us-east-1.amazonaws.com/signup
+  GET - https://n4vd03p5e8.execute-api.us-east-1.amazonaws.com/mascota/{idMascota}
+  POST - https://n4vd03p5e8.execute-api.us-east-1.amazonaws.com/mascota
+  GET - https://n4vd03p5e8.execute-api.us-east-1.amazonaws.com/mascotas
+  PUT - https://n4vd03p5e8.execute-api.us-east-1.amazonaws.com/mascota/{idMascota}
+
+ addCita POST - https://n4vd03p5e8.execute-api.us-east-1.amazonaws.com/addCita
+ getCita GET - https://n4vd03p5e8.execute-api.us-east-1.amazonaws.com/getCita/{idCita}
+ getCitas  GET - https://n4vd03p5e8.execute-api.us-east-1.amazonaws.com/getCitas
+ scheduleCita PUT - https://n4vd03p5e8.execute-api.us-east-1.amazonaws.com/scheduleCita/{idCita}
+ cancelCita  PUT - https://n4vd03p5e8.execute-api.us-east-1.amazonaws.com/cancelCita/{idCita}
+ addUsuario POST - https://n4vd03p5e8.execute-api.us-east-1.amazonaws.com/signup
+ getUsuario GET - https://n4vd03p5e8.execute-api.us-east-1.amazonaws.com/login/{idUsuario}
+
